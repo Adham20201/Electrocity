@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "624169685737",
+    "project_id": "electrocity-f377d",
+    "storage_bucket": "electrocity-f377d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624169685737:android:a7cd364f375db68357d678",
+        "android_client_info": {
+          "package_name": "com.example.electrocity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624169685737-cvuicel08nrgulcfcj2j77afp1aanhis.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAStX1F5g9r_CYympVAgaREFcsqjgy9ZsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624169685737-cvuicel08nrgulcfcj2j77afp1aanhis.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
