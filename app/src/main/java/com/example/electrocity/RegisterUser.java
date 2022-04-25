@@ -19,10 +19,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.net.URL;
-import java.util.Objects;
-import java.util.regex.Pattern;
-
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
 
     private TextView banner, registerUser;
@@ -58,7 +54,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         switch (v.getId()){
             case R.id.banner:
-                startActivity(new Intent(this,MainActivity.class));
+                startActivity(new Intent(this, LoginUser.class));
                 break;
             case R.id.RegisterUser:
                 registerUser();
@@ -126,6 +122,8 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()){
                                             Toast.makeText(RegisterUser.this,"User has been registered successfully!", Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(RegisterUser.this, SetupActivity.class));
+
                                         }else {
                                             Toast.makeText(RegisterUser.this,"Failed to register!", Toast.LENGTH_LONG).show();
                                         }

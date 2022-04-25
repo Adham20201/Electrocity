@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()){
             case R.id.signOut:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+                startActivity(new Intent(ProfileActivity.this, LoginUser.class));
                 break;
         }
     }

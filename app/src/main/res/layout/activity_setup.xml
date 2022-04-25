@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SetupActivity">
+
+    <Button
+        android:id="@+id/listen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="19dp"
+        android:text="Listen"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/listen"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="31dp" />
+
+    <TextView
+        android:id="@+id/msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listview"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:hint="Message"
+        android:textAlignment="center"
+        android:textColor="?android:attr/textColorLink"
+        android:textSize="30sp"
+        android:textStyle="italic" />
+
+    <EditText
+        android:id="@+id/writemsg1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/writemsg2"
+        android:layout_alignStart="@+id/listen"
+        android:layout_alignEnd="@id/status"
+        android:layout_marginStart="-1dp"
+        android:layout_marginBottom="9dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="WiFi SSID"
+        />
+
+    <EditText
+        android:id="@+id/writemsg2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/send"
+        android:layout_alignStart="@+id/listen"
+        android:layout_alignEnd="@id/status"
+        android:layout_marginStart="-1dp"
+        android:layout_marginBottom="9dp"
+        android:ems="10"
+        android:inputType="textVisiblePassword"
+        android:hint="WiFi Password"/>
+
+    <Button
+        android:id="@+id/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Send" />
+
+    <Button
+        android:id="@+id/listDevices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/listview"
+        android:layout_centerHorizontal="true"
+        android:text="List Devices" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/listDevices"
+        android:layout_alignBottom="@+id/listDevices"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="14dp"
+        android:text="Status"
+        android:textSize="14sp"
+        android:textStyle="italic" />
+
+</RelativeLayout>
