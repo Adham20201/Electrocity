@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -21,9 +23,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView banner, registerUser;
-    private EditText editTextFullName, editTextAge, editTextEmail, editTextPassword;
-    private ProgressBar progressBar;
+    private FloatingActionButton registerUser;
+    private TextView haveAccount ;
+    private EditText editTextFullName, editTextPhoneNumber, editTextEmail, editTextPassword;
+    private ImageView back;
 
     private FirebaseAuth mAuth;
     FirebaseDatabase rootNode;
@@ -36,25 +39,31 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         mAuth = FirebaseAuth.getInstance();
 
-        banner = findViewById(R.id.banner);
-        banner.setOnClickListener(this);
+
 
         registerUser = findViewById(R.id.RegisterUser);
         registerUser.setOnClickListener(this);
 
+        back = findViewById(R.id.back);
+        back.setOnClickListener(this);
+
+        haveAccount = findViewById(R.id.haveAccount);
+        haveAccount.setOnClickListener(this);
+
         editTextFullName = findViewById(R.id.fullName);
-        editTextAge = findViewById(R.id.age);
+        editTextPhoneNumber = findViewById(R.id.phoneNumber);
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
 
-        progressBar = findViewById(R.id.progressBar);
     }
 
     @Override
     public void onClick(View v){
         switch (v.getId()){
-            case R.id.banner:
+            case R.id.back:
+            case R.id.haveAccount:
                 startActivity(new Intent(this, LoginUser.class));
+                overridePendingTransition(R.anim.slide_in_left,android.R.anim.slide_out_right);
                 break;
             case R.id.RegisterUser:
                 registerUser();
@@ -66,7 +75,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String fullName = editTextFullName.getText().toString().trim();
-        String age = editTextAge.getText().toString().trim();
+        String age = editTextPhoneNumber.getText().toString().trim();
 
         if (fullName.isEmpty()){
             editTextFullName.setError("Full name is required!");
@@ -75,8 +84,8 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         }
 
         if (age.isEmpty()){
-            editTextAge.setError("Age is required!");
-            editTextAge.requestFocus();
+            editTextPhoneNumber.setError("Age is required!");
+            editTextPhoneNumber.requestFocus();
             return;
         }
 
@@ -104,7 +113,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -139,7 +147,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                 else {
                     Toast.makeText(RegisterUser.this, "Failed to register!" , Toast.LENGTH_LONG).show();
                 }
-                progressBar.setVisibility(View.GONE);
             }
         });
     }

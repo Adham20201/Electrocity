@@ -50,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 if (userProfile != null){
                     String fullName = userProfile.fullName;
                     String email = userProfile.email;
-                    String age = userProfile.age;
+                    String age = userProfile.phoneNumber;
 
                     fullNameTextView.setText(fullName);
                     emailTextView.setText(email);

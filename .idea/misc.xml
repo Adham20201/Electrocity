@@ -5,10 +5,12 @@
       <map>
         <entry key="..\:/my projects/Electrocity/app/src/main/res/drawable-anydpi/ic_action_off.xml" value="0.2085" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/drawable/button_background_blue.xml" value="0.2085" />
+        <entry key="..\:/my projects/Electrocity/app/src/main/res/drawable/ic_register_hero.xml" value="0.2085" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_forgot_password.xml" value="0.38697916666666665" />
+        <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_login_user.xml" value="0.38697916666666665" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_profile.xml" value="0.38697916666666665" />
-        <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_register_user.xml" value="0.22447916666666667" />
+        <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_register_user.xml" value="0.33" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_setup.xml" value="0.38697916666666665" />
       </map>
     </option>

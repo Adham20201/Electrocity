@@ -6,6 +6,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,10 +25,10 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
 
     private TextView register , forgotPassword;
     private EditText editTextEmail , editTextPassword;
-    private Button signIn;
+    private FloatingActionButton signIn;
+    private ImageView newUser;
 
     private FirebaseAuth mAuth;
-    private ProgressBar progressBar;
 
     @Override
     protected void onStart() {
@@ -47,20 +49,24 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
         register = findViewById(R.id.register);
         register.setOnClickListener(this);
 
+        newUser = findViewById(R.id.addNewUser);
+        newUser.setOnClickListener(this);
+
         forgotPassword = findViewById(R.id.forgotPassword);
         forgotPassword.setOnClickListener(this);
 
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
 
-        progressBar = findViewById(R.id.progressBar);
     }
 
     @Override
     public void onClick(View v){
         switch (v.getId()){
             case R.id.register:
+            case R.id.addNewUser:
                 startActivity(new Intent(this,RegisterUser.class));
+                overridePendingTransition(R.anim.slide_in_right,R.anim.stay);
                 break;
             case  R.id.signIn:
                 useLogin();
@@ -99,7 +105,6 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
             return;
         }
 
-        progressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -116,7 +121,6 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
                 else {
                     Toast.makeText(LoginUser.this,"Failed to login! please check your credentials",Toast.LENGTH_LONG).show();
                 }
-                progressBar.setVisibility(View.GONE);
             }
         });
 

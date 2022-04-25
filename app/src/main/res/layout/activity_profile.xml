@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/teal_200"
+        android:backgroundTint="@color/colorAccent"
         android:text="Logout"
         android:textColor="#ffffff"
         android:textSize="20sp"
