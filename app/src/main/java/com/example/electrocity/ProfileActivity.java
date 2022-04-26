@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +26,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private String userID;
 
-    private Button logout;
+    private ExtendedFloatingActionButton logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         userID = user.getUid();
 
         final TextView fullNameTextView = findViewById(R.id.fullName);
-        final TextView emailTextView = findViewById(R.id.emailAddress);
-        final TextView ageTextView = findViewById(R.id.age);
+        final TextView phoneNumberTextView = findViewById(R.id.phoneNumber);
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -53,8 +53,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     String age = userProfile.phoneNumber;
 
                     fullNameTextView.setText(fullName);
-                    emailTextView.setText(email);
-                    ageTextView.setText(age);
+                    phoneNumberTextView.setText(age);
 
                 }
             }

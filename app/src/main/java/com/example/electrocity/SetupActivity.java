@@ -26,6 +26,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -34,7 +36,7 @@ import java.util.UUID;
 
 public class SetupActivity extends AppCompatActivity {
 
-    Button  send, listDevices;
+    ExtendedFloatingActionButton send, listDevices;
     ListView listView;
     TextView status;
     EditText writeMsg1,writeMsg2;
@@ -91,12 +93,12 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     private void findViewByIdes() {
-        send = (Button) findViewById(R.id.send);
+        send =  findViewById(R.id.send);
         listView = (ListView) findViewById(R.id.listview);
         status = (TextView) findViewById(R.id.status);
         writeMsg1 = (EditText) findViewById(R.id.writemsg1);
         writeMsg2 = (EditText) findViewById(R.id.writemsg2);
-        listDevices = (Button) findViewById(R.id.listDevices);
+        listDevices = findViewById(R.id.listDevices);
     }
 
     private void implementListeners() {

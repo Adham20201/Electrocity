@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/my projects/Electrocity/app/src/main/res/drawable-anydpi/back_icon.xml" value="0.2085" />
+        <entry key="..\:/my projects/Electrocity/app/src/main/res/drawable-anydpi/go_icon.xml" value="0.2085" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/drawable-anydpi/ic_action_off.xml" value="0.2085" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/drawable-anydpi/ic_action_on.xml" value="0.2085" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/drawable-anydpi/password_icon.xml" value="0.2085" />
@@ -23,10 +24,13 @@
         <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_login_user.xml" value="0.33" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_prof.xml" value="0.38697916666666665" />
-        <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_profile.xml" value="0.38697916666666665" />
+        <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_profile.xml" value="0.33" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_register_user.xml" value="0.33" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_set.xml" value="0.38697916666666665" />
         <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/activity_setup.xml" value="0.38697916666666665" />
+        <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/dashboard_item_2.xml" value="0.38697916666666665" />
+        <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/dashboard_item_3.xml" value="0.38697916666666665" />
+        <entry key="..\:/my projects/Electrocity/app/src/main/res/layout/dasvoard_item_1.xml" value="0.38697916666666665" />
       </map>
     </option>
   </component>
