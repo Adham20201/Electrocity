@@ -1,5 +1,7 @@
 package com.example.electrocity;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -32,9 +34,9 @@ import java.util.UUID;
 
 public class SetupActivity extends AppCompatActivity {
 
-    Button listen, send, listDevices;
+    Button  send, listDevices;
     ListView listView;
-    TextView msg_box, status;
+    TextView status;
     EditText writeMsg1,writeMsg2;
 
     BluetoothAdapter bluetoothAdapter;
@@ -58,26 +60,39 @@ public class SetupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
-
+        if (ActivityCompat.checkSelfPermission(SetupActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            requestBlePermissions(SetupActivity.this, PERMISSION_CODE);
+        }
         findViewByIdes();
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         //intent to on bluetooth
-        if (!bluetoothAdapter.isEnabled()) {
-            if (ActivityCompat.checkSelfPermission(SetupActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                requestBlePermissions(SetupActivity.this, PERMISSION_CODE);
-            }
-            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(intent, REQUEST_ENABLE_BLUETOOTH);
-        }
+
+        ActivityResultLauncher<String> requestPermissionLauncher =
+                registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                    if (isGranted) {
+                        try {
+                            wait(20);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (!bluetoothAdapter.isEnabled()) {
+                            if (ActivityCompat.checkSelfPermission(SetupActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                                requestBlePermissions(SetupActivity.this, PERMISSION_CODE);
+                            }
+                            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                            startActivityForResult(intent, REQUEST_ENABLE_BLUETOOTH);
+                        }
+                    }
+                });
+
+
         implementListeners();
 
     }
 
     private void findViewByIdes() {
-        listen = (Button) findViewById(R.id.listen);
         send = (Button) findViewById(R.id.send);
         listView = (ListView) findViewById(R.id.listview);
-        msg_box = (TextView) findViewById(R.id.msg);
         status = (TextView) findViewById(R.id.status);
         writeMsg1 = (EditText) findViewById(R.id.writemsg1);
         writeMsg2 = (EditText) findViewById(R.id.writemsg2);
@@ -109,20 +124,11 @@ public class SetupActivity extends AppCompatActivity {
             }
         });
 
-        listen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ServerClass serverClass = new ServerClass();
-                serverClass.start();
-            }
-        });
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ClientClass clientClass = new ClientClass(btArray[i]);
                 clientClass.start();
-
                 status.setText("Connecting");
             }
         });
@@ -166,60 +172,10 @@ public class SetupActivity extends AppCompatActivity {
                 case STATE_CONNECTION_FAILED:
                     status.setText("Connection Failed");
                     break;
-                case STATE_MESSAGE_RECEIVED:
-                    byte[] readBuff = (byte[]) msg.obj;
-                    String tempMsg = new String(readBuff, 0, msg.arg1);
-                    msg_box.setText(tempMsg);
-                    break;
             }
             return true;
         }
     });
-
-    private class ServerClass extends Thread {
-        private BluetoothServerSocket serverSocket;
-
-        public ServerClass() {
-            try {
-                if (ActivityCompat.checkSelfPermission(SetupActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                    requestBlePermissions(SetupActivity.this, PERMISSION_CODE);
-                }
-                serverSocket = bluetoothAdapter.listenUsingRfcommWithServiceRecord(APP_NAME, MY_UUID);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void run() {
-            BluetoothSocket socket = null;
-
-            while (socket == null) {
-                try {
-                    Message message = Message.obtain();
-                    message.what = STATE_CONNECTING;
-                    handler.sendMessage(message);
-
-                    socket = serverSocket.accept();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Message message = Message.obtain();
-                    message.what = STATE_CONNECTION_FAILED;
-                    handler.sendMessage(message);
-                }
-
-                if (socket != null) {
-                    Message message = Message.obtain();
-                    message.what = STATE_CONNECTED;
-                    handler.sendMessage(message);
-
-                    sendReceive = new SendReceive(socket);
-                    sendReceive.start();
-
-                    break;
-                }
-            }
-        }
-    }
 
     private class ClientClass extends Thread {
         private BluetoothDevice device;
@@ -283,21 +239,7 @@ public class SetupActivity extends AppCompatActivity {
             outputStream=tempOut;
         }
 
-        public void run()
-        {
-            byte[] buffer=new byte[1024];
-            int bytes;
 
-            while (true)
-            {
-                try {
-                    bytes=inputStream.read(buffer);
-                    handler.obtainMessage(STATE_MESSAGE_RECEIVED,bytes,-1,buffer).sendToTarget();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
 
         public void write(byte[] bytes)
         {
@@ -323,9 +265,18 @@ public class SetupActivity extends AppCompatActivity {
 
     public static void requestBlePermissions(Activity activity, int requestCode) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-            ActivityCompat.requestPermissions(activity, ANDROID_12_BLE_PERMISSIONS, requestCode);
+            try {
+                ActivityCompat.requestPermissions(activity, ANDROID_12_BLE_PERMISSIONS, requestCode);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         else
-            ActivityCompat.requestPermissions(activity, BLE_PERMISSIONS, requestCode);
+            try {
+                ActivityCompat.requestPermissions(activity, BLE_PERMISSIONS, requestCode);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
 }

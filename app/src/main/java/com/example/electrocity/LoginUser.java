@@ -1,6 +1,7 @@
 package com.example.electrocity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,7 +27,7 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
 
     private TextView register , forgotPassword;
     private EditText editTextEmail , editTextPassword;
-    private FloatingActionButton signIn;
+    private ExtendedFloatingActionButton signIn;
     private ImageView newUser;
 
     private FirebaseAuth mAuth;
@@ -39,6 +41,7 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setContentView(R.layout.activity_login_user);
 
         mAuth = FirebaseAuth.getInstance();
@@ -73,6 +76,7 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.forgotPassword:
                 startActivity(new Intent(this,ForgotPassword.class));
+                overridePendingTransition(R.anim.slide_in_right,R.anim.stay);
                 break;
         }
     }

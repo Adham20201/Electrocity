@@ -106,23 +106,19 @@
                             android:maxLines="1" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                        android:id="@+id/RegisterUser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/loginViewsMargin"
-                        >
 
-                        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                            android:id="@+id/RegisterUser"
-                            style="@style/loginButton"
-                            android:layout_gravity="center_horizontal"
-                            android:paddingTop="2.5dp"
-                            android:paddingRight="7dp"
-                            android:text="Register"
-                            android:textAlignment="center" />
-
-                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                        android:text="Register"
+                        android:textAlignment="center"
+                        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                        android:backgroundTint="@color/register_bk_color"
+                        android:textColor="@color/colorPrimary"/>
 
                     <TextView
                         android:id="@+id/haveAccount"
@@ -132,7 +128,8 @@
                         android:textAlignment="center"
                         android:textColor="@color/themeColor"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

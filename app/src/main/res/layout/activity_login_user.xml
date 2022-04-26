@@ -78,23 +78,17 @@
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/newsMoreTextSize" />
 
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/loginViewsMargin"
-                >
-
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/signIn"
-                style="@style/loginButton"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="2.5dp"
-                android:paddingRight="7dp"
                 android:text="Login"
-                android:textAlignment="center" />
-
-            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:backgroundTint="@color/register_bk_color"/>
 
             <TextView
                 android:id="@+id/register"
