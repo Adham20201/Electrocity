@@ -2,15 +2,20 @@ package com.example.electrocity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,10 +26,18 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
+
+
+    private FirebaseDatabase rootNode;
+
     private FirebaseUser user;
     private DatabaseReference reference;
+    private DatabaseReference reference2;
 
     private String userID;
+
+    LinearLayout cardViews;
+    CardView MaximumComfort, MediumComfort, MinimumComfort;
 
     private ExtendedFloatingActionButton logout;
 
@@ -32,6 +45,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+
+        MaximumComfort = findViewById(R.id.MaximumComfort);
+        MaximumComfort.setOnClickListener(this);
+        MediumComfort = findViewById(R.id.MediumComfort);
+        MediumComfort.setOnClickListener(this);
+        MinimumComfort = findViewById(R.id.MinimumComfort);
+        MinimumComfort.setOnClickListener(this);
+
+
 
         logout = findViewById(R.id.signOut);
         logout.setOnClickListener(this);
@@ -73,6 +96,23 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(ProfileActivity.this, LoginUser.class));
                 break;
+            case R.id.MaximumComfort:
+                rootNode = FirebaseDatabase.getInstance("https://electrocity-f377d-default-rtdb.europe-west1.firebasedatabase.app/");
+                reference2 = rootNode.getReference("Users");
+                reference2.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("option").setValue("Maximum Comfort, Minimum Cost-efficiency");
+                break;
+            case R.id.MediumComfort:
+                rootNode = FirebaseDatabase.getInstance("https://electrocity-f377d-default-rtdb.europe-west1.firebasedatabase.app/");
+                reference2 = rootNode.getReference("Users");
+                reference2.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("option").setValue("Medium Comfort, Medium Cost-efficiency");
+
+                break;
+            case R.id.MinimumComfort:
+                rootNode = FirebaseDatabase.getInstance("https://electrocity-f377d-default-rtdb.europe-west1.firebasedatabase.app/");
+                reference2 = rootNode.getReference("Users");
+                reference2.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("option").setValue("Minimum Comfort, Maximum Cost-efficiency");
+                break;
+
         }
     }
 }

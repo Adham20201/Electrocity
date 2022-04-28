@@ -112,7 +112,7 @@
                 </Space>
 
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                    android:id="@+id/send"
+                    android:id="@+id/btnSend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -161,21 +161,21 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/card_background">
 
-        <ListView
-            android:id="@+id/listview"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDevice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/connectDevices"
+            android:layout_above="@id/btnFindUnpairedDevices"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="22dp"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="22dp"
             android:layout_marginBottom="22dp"
-            android:background="@color/colorPrimary" />
+            android:background="#FFFFFF" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/listDevices"
+            android:id="@+id/btnFindUnpairedDevices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -183,24 +183,26 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/loginViewsMargin"
             android:backgroundTint="@color/register_bk_color"
+            android:onClick="btnDiscover"
             android:text="Show devices"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/connectDevices"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/goToProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/loginViewsMargin"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/loginViewsMargin"
             android:backgroundTint="@color/register_bk_color"
-            android:layout_above="@id/listDevices"
-            android:text="Connect"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+            android:layout_marginBottom="@dimen/loginViewsMargin"
+            android:src="@drawable/account_icon"
+            app:maxImageSize="@dimen/_30sdp" />
+
+
+
 
     </RelativeLayout>
 

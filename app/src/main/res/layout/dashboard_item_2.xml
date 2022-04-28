@@ -11,7 +11,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:id="@+id/MediumComfort"
         app:cardBackgroundColor="@color/register_bk_color"
         app:cardCornerRadius="@dimen/_14sdp"
         app:cardElevation="0dp"
@@ -27,7 +27,9 @@
             android:paddingTop="@dimen/_14sdp"
             android:paddingEnd="@dimen/_14sdp"
             android:paddingRight="@dimen/_14sdp"
-            android:paddingBottom="@dimen/_14sdp">
+            android:paddingBottom="@dimen/_14sdp"
+            android:background="@drawable/custom_ripple2"
+            >
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="@dimen/_35sdp"

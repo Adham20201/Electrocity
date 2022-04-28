@@ -1,91 +1,74 @@
 package com.example.electrocity;
 
-import android.Manifest;
-import android.app.Activity;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.core.app.ActivityCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
+public class DeviceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-public class DeviceListAdapter extends ArrayAdapter<BluetoothDevice> {
+    private Context context;
+    private List<Object> deviceList;
 
-    private LayoutInflater mLayoutInflater;
-    private ArrayList<BluetoothDevice> mDevices;
-    private int mViewResourceId;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView textName, textAddress;
+        ConstraintLayout constraintlayout;
 
-    Context mContext;
-    Activity mActivity;
-
-    private static final int PERMISSION_CODE = 3;
-
-    public DeviceListAdapter(Context context, int tvResourceId, ArrayList<BluetoothDevice> devices , Activity activity) {
-        super(context, tvResourceId, devices);
-        this.mDevices = devices;
-        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mViewResourceId = tvResourceId;
-        mContext = context;
-        mActivity = activity;
-    }
-
-    public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = mLayoutInflater.inflate(mViewResourceId, null);
-
-        BluetoothDevice device = mDevices.get(position);
-
-        if (device != null) {
-            TextView deviceName = (TextView) convertView.findViewById(R.id.tvDeviceName);
-            TextView deviceAdress = (TextView) convertView.findViewById(R.id.tvDeviceAddress);
-
-            if (deviceName != null) {
-                if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                    requestBlePermissions(mActivity,PERMISSION_CODE);
-                }
-                deviceName.setText(device.getName());
-            }
-            if (deviceAdress != null) {
-                deviceAdress.setText(device.getAddress());
-            }
+        public ViewHolder(View v) {
+            super(v);
+            textName = v.findViewById(R.id.textViewDeviceName);
+            textAddress = v.findViewById(R.id.textViewDeviceAddress);
+            constraintlayout = v.findViewById(R.id.constraintLayoutDeviceInfo);
         }
-
-        return convertView;
     }
 
-    private static final String[] BLE_PERMISSIONS = new String[]{
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-    };
+    public DeviceListAdapter(Context context, List<Object> deviceList) {
+        this.context = context;
+        this.deviceList = deviceList;
 
-    private static final String[] ANDROID_12_BLE_PERMISSIONS = new String[]{
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.BLUETOOTH_SCAN,
-            Manifest.permission.BLUETOOTH_CONNECT,
-    };
-
-    public static void requestBlePermissions(Activity activity, int requestCode) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-            try {
-                ActivityCompat.requestPermissions(activity, ANDROID_12_BLE_PERMISSIONS, requestCode);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        else
-            try {
-                ActivityCompat.requestPermissions(activity, BLE_PERMISSIONS, requestCode);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
     }
 
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.device_info_layout, parent, false);
+        ViewHolder vh = new ViewHolder(v);
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        ViewHolder itemHolder = (ViewHolder) holder;
+        final DeviceInfoModel deviceInfoModel = (DeviceInfoModel) deviceList.get(position);
+        itemHolder.textName.setText(deviceInfoModel.getDeviceName());
+        itemHolder.textAddress.setText(deviceInfoModel.getDeviceHardwareAddress());
+
+        // When a device is selected
+        itemHolder.constraintlayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent("custom-message");
+                // Send device details to the MainActivity
+                intent.putExtra("deviceName", deviceInfoModel.getDeviceName());
+                intent.putExtra("deviceAddress",deviceInfoModel.getDeviceHardwareAddress());
+                // Call MainActivity
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        int dataCount = deviceList.size();
+        return dataCount;
+    }
 }
